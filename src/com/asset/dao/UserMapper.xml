@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asset.dao.UserMapper">
+    <resultMap id="userMap" type="com.asset.pojo.User">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/><!-- // column 是对应数据库中表的字段名称 property是对应的bean里面的属性名称 -->
+        <result property="password" column="password"/>
+        <result property="buyTime" column="buy_time"/>
+        <result property="role" column="role"/>
+        <result property="addedTime" column="added_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="depart" column="depart"/>
+        <result property="phone" column="phone"/>
+        <result property="position" column="position"/>
+    </resultMap>
+    <sql id="update_asset_set">
+        <if test="equipModel !=null and equipModel !=''">
+            equip_model= #{equipModel},
+        </if>
+        <if test="equipGenre !=null and equipGenre !=''">
+            equip_genre = #{equipGenre},
+        </if>
+        <if test="buyTime !=null and buyTime !=''">
+            buy_time = #{buyTime},e
+        </if>
+        <if test="usedTime !=null and usedTime !=''">
+            used_time = #{usedTime},
+        </if>
+        <if test="usePosition !=null and usePosition !=''">
+            use_position = #{usePosition},
+        </if>
+        <if test="usePerson != null and usePerson != ''">
+            equip_user = #{usePerson},
+        </if>
+        <if test="useDepart != null and useDepart != ''">
+            equip_userDepart = #{useDepart},
+        </if>
+        <if test="condition != null and condition != ''">
+            used_condition = #{condition},
+        </if>
+        <if test="source != null and source != ''">
+            source = #{source},
+        </if>
+        <if test="equipIdentifier != null and equipIdentifier != ''">
+            equip_identifier = #{equipIdentifier},
+        </if>
+        <if test="assetAllocation != null and assetAllocation != ''">
+            asset_allocation = #{assetAllocation},
+        </if>
+        <if test="lastTime != null and lastTime != ''">
+            lastTime = #{lastTime},
+        </if>
+        <if test="remarks != null and remarks != ''">
+            remarks = #{remarks},
+        </if>
+        <if test="ifPd != 0 and ifPd != ''">
+            ifPd = #{ifPd}
+        </if>
+    </sql>
+
+    <select id="listAll" resultMap="assetMap">
+        select * from asset
+    </select>
+    <update parameterType="com.asset.pojo.Asset" id="updateByPrivateKey" flushCache="false">
+        update asset
+        <set>
+            <include refid="update_asset_set"></include>
+        </set>
+        where id=#{id}
+    </update>
+    <update parameterType="com.asset.pojo.Asset" id="exitIfPd" >
+        update asset set ifPd =#{ifPd}
+    </update>
+    <!-- <insert id="insert" parameterType="com.asset.pojo.Asset" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO asset (equip_model,equip_genre,buy_time,used_time,use_position,equip_user,equip_userDepart,used_condition,source,equip_identifier,asset_allocation,lastTime)
+                VALUES(#{equipModel},#{equipGenre},#{buyTime},#{usedTime},#{usePosition},#{usePerson},#{useDepart},#{condition},#{source},#{equipIdentifier},#{assetAllocation},#{lastTime})
+    </insert> -->
+    <insert id="insert" parameterType="com.asset.pojo.Asset"
+            keyProperty="id" useGeneratedKeys="true">
+        insert into asset
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="equipModel != null" >
+                equip_model,
+            </if>
+            <if test="equipGenre != null" >
+                equip_genre,
+            </if>
+            <if test="buyTime != null" >
+                buy_time,
+            </if>
+            <if test="usedTime != null" >
+                used_time,
+            </if>
+            <if test="usePosition != null" >
+                use_position,
+            </if>
+            <if test="usePerson != null" >
+                equip_user,
+            </if>
+            <if test="useDepart != null" >
+                equip_userDepart,
+            </if>
+            <if test="condition != null" >
+                used_condition,
+            </if>
+            <if test="source != null" >
+                source,
+            </if>
+            <if test="equipIdentifier != null" >
+                equip_identifier,
+            </if>
+            <if test="assetAllocation != null" >
+                asset_allocation,
+            </if>
+            <if test="lastTime != null" >
+                lastTime,
+            </if>
+            <if test="remarks != null" >
+                remarks,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="equipModel != null" >
+                #{equipModel,jdbcType=VARCHAR},
+            </if>
+            <if test="equipGenre != null" >
+                #{equipGenre,jdbcType=VARCHAR},
+            </if>
+            <if test="buyTime != null" >
+                #{buyTime,jdbcType=DATE},
+            </if>
+            <if test="usedTime != null" >
+                #{usedTime,jdbcType=DATE},
+            </if>
+            <if test="usePosition != null" >
+                #{usePosition,jdbcType=VARCHAR},
+            </if>
+            <if test="usePerson != null" >
+                #{usePerson,jdbcType=VARCHAR},
+            </if>
+            <if test="useDepart != null" >
+                #{useDepart,jdbcType=VARCHAR},
+            </if>
+            <if test="condition != null" >
+                #{condition,jdbcType=VARCHAR},
+            </if>
+            <if test="source != null" >
+                #{source,jdbcType=VARCHAR},
+            </if>
+            <if test="equipIdentifier != null" >
+                #{equipIdentifier,jdbcType=VARCHAR},
+            </if>
+            <if test="assetAllocation != null" >
+                #{assetAllocation,jdbcType=VARCHAR},
+            </if>
+            <if test="lastTime != null" >
+                #{lastTime,jdbcType=DATE},
+            </if>
+            <if test="remarks != null" >
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+
+    <select id="getAssetByPrivateKey" parameterType="java.lang.Long" resultMap="assetMap">
+        select * from asset where id=#{id}
+    </select>
+    <delete id="delectByPrivateKey" parameterType="java.lang.Long">
+        delete from asset where id=#{id}
+    </delete>
+    <select id="listAsset" resultMap="assetMap">
+        select * from asset
+        where 1=1
+        <if test="tempId != null and tempId!=0">
+            and asset.id = #{tempId,jdbcType=BIGINT}
+        </if>
+        <if test="tempName != null">
+            and  (<![CDATA[asset.equip_model like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.equip_genre like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.use_position like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.equip_user like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.equip_userDepart like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.used_condition like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.source like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.equip_identifier like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.asset_allocation like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            )
+        </if>
+    </select>
+    <select id="listAssetAllPage" resultMap="assetMap">
+        select * from asset
+        where 1=1
+        <if test="tempName != null">
+            and  (<![CDATA[asset.equip_model like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.equip_genre like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.use_position like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.equip_user like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.equip_userDepart like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.used_condition like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.source like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.equip_identifier like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            <![CDATA[or asset.asset_allocation like CONCAT('%',#{tempName,jdbcType=VARCHAR},'%' )]]>
+            )
+        </if>
+        limit #{recordStart},#{recordEnd}
+    </select>
+</mapper>

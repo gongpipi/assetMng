@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>  
+    <!DOCTYPE struts PUBLIC  
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.objectFactory.spring.autoWire.alwaysRespect" value="true" />
+	<!-- 用户管理 -->
+	<include file="struts-user.xml"></include>
+	<!-- 资产管理 -->
+	<include file="struts-asset.xml"></include>
+	<!-- 测试 -->
+	<include file="struts-test.xml"></include>
+	
+	<package name="struts-rootException"  extends="struts-default">
+		<global-results>
+			<result name="root-exception">/WEB-INF/pages/404.jsp
+			</result>
+			<result name="sysError">/WEB-INF/pages/404.jsp
+			</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="root-exception"
+				exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+    </package>
+</struts>

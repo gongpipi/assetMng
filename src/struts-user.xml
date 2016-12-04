@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"struts-2.0.dtd">
+<struts>
+	<package name="user" extends="struts-rootException">
+		<action name="user_toLogin" class="com.asset.action.UserAction"
+				method="toLogin">
+				<result name="success" >/WEB-INF/pages/login.jsp</result>
+		</action>
+	</package>
+	
+	<package name="user-json" extends="json-default">
+		
+	</package>
+</struts>

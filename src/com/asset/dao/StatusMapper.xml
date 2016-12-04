@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asset.dao.StatusMapper">
+	<select id="getStatus" resultType="com.asset.pojo.Status">
+		select * from status
+	</select>
+	<update id="updateSataus" parameterType="com.asset.pojo.Status"> 
+		update status set pdStatus =#{pdStatus}
+	</update>
+</mapper>

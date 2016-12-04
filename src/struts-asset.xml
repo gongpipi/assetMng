@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"struts-2.0.dtd">
+<struts>
+	<package name="asset" extends="struts-rootException">
+		<action name="getAssetMessage" class="com.asset.action.AssetAction"
+				method="getAssetMessage">
+				<result name="success" >/WEB-INF/pages/asset/assetMsg.jsp</result>
+		</action>
+		<action name="getQRcode" class="com.asset.action.AssetAction"
+				method="getQRcode">
+				
+		</action>
+		<action name="exportAssetExcel" class="com.asset.action.AssetAction"
+				method="exportAssetExcel">
+				
+		</action>
+		<action name="toPdAsset" class="com.asset.action.AssetAction"
+			method="toPdAsset">
+			<result name="success" >/WEB-INF/pages/asset/pdAsset.jsp</result>
+		</action>
+		
+		<action name="toPdNotAsset" class="com.asset.action.AssetAction"
+			method="toPdNotAsset">
+			<result name="success" >/WEB-INF/pages/asset/pdNotAsset.jsp</result>
+		</action>
+		
+		<action name="toPdAlreadyAsset" class="com.asset.action.AssetAction"
+			method="toPdAlreadyAsset">
+			<result name="success" >/WEB-INF/pages/asset/pdAlreadyAsset.jsp</result>
+		</action>
+		
+		<action name="editPdAsset" class="com.asset.action.AssetAction"
+			method="editPdAsset">
+			<result name="success" type="redirectAction">toPdAsset</result>
+		</action>
+				
+		<action name="upload" class="com.asset.action.AssetAction"
+			method="addByFile">
+			<result name="success" type="redirectAction">listAsset</result>
+		</action>
+		<action name="listAsset" class="com.asset.action.AssetAction"
+			method="listAssetAll">
+			<result name="success" >/WEB-INF/pages/asset/listAsset.jsp</result>
+		</action>
+		<action name="to_addAsset" class="com.asset.action.AssetAction"
+			method="toAddAsset">
+			<result name="success">/WEB-INF/pages/asset/addAsset.jsp</result>
+		</action>
+		<action name="addAsset" class="com.asset.action.AssetAction"
+			method="addAsset">
+			<result name="success" type="redirectAction">listAsset</result>
+		</action>
+		<action name="modifyAsset" class="com.asset.action.AssetAction"
+			method="modifyAsset">
+			<result name="success" type="redirectAction">listAsset</result>
+		</action>
+       	<action name="to_modifyAsset" class="com.asset.action.AssetAction"
+			method="toModifyAsset">
+			<result name="success">/WEB-INF/pages/asset/addAsset.jsp</result>
+		</action>
+       	
+		
+		
+		<action name="fileInputAsset" class="com.asset.action.AssetAction"
+			method="fileInputAsset">
+			<result name="success">/WEB-INF/pages/asset/listAsset.jsp</result>
+		</action>
+		<action name="assetInfo" class="com.asset.action.AssetAction"
+			method="assetInfo">
+			<result name="success">/WEB-INF/pages/asset/assetInfo.jsp</result>
+		</action>
+		<action name="genQRcode" class="com.asset.action.AssetAction"
+			method="genQRcode">
+			<result name="success">/WEB-INF/pages/asset/genQRcode.jsp</result>
+		</action>
+		
+	</package>
+	
+	<package name="asset-json" extends="json-default">
+		<!-- 删除多个 -->
+		<action name="ajax_deleteAssetMany" class="com.asset.action.AssetAction"
+			method="deleteAssetMany">
+			<result name="success" type="json" >
+				<param name="includeProperties">operaRes</param>
+			</result>
+		</action>
+<!-- 		删除的单个 -->
+		<action name="ajax_deleteAsset" class="com.asset.action.AssetAction"
+			method="deleteAsset">
+			<result name="success" type="json" >
+				<param name="includeProperties">operaRes</param>
+			</result>
+		</action>
+	</package>
+</struts>
